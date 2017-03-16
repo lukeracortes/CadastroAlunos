@@ -14,11 +14,11 @@ USE `sistemaAlunos` ;
 -- Table `sistemaAlunos`.`Enderco`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaAlunos`.`Enderco` (
-  `idEnderco` INT NOT NULL,
+  `idEnderco` INT NOT NULL AUTO_INCREMENT,
   `Rua` VARCHAR(45) NOT NULL,
   `Numero` INT NOT NULL,
-  `Bairro` VARCHAR(45) NULL,
-  `Complemento` VARCHAR(45) NOT NULL,
+  `Bairro` VARCHAR(45) NOT NULL,
+  `Complemento` VARCHAR(45),
   `Cidade` VARCHAR(45) NOT NULL,
   `Estado` VARCHAR(45) NOT NULL,
   `cep` INT NOT NULL,
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `sistemaAlunos`.`Aluno`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaAlunos`.`Aluno` (
-  `idAluno` INT NOT NULL,
+  `idAluno` INT NOT NULL AUTO_INCREMENT,
   `nomeAluno` VARCHAR(45) NOT NULL,
   `cpfAluno` INT NOT NULL,
   `raAluno` VARCHAR(45) NOT NULL,
@@ -39,3 +39,4 @@ CREATE TABLE IF NOT EXISTS `sistemaAlunos`.`Aluno` (
   PRIMARY KEY (`idAluno`),
   FOREIGN KEY (Enderco_idEnderco) references Enderco(idEnderco))
 ENGINE = InnoDB;
+
