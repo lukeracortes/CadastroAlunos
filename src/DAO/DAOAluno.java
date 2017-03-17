@@ -5,10 +5,13 @@
  */
 package DAO;
 
-import Model.Aluno;
+import Model.AlunoM;
 import dao.Conexao;
+import java.util.List;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +22,7 @@ public class DAOAluno {
     PreparedStatement pst;
     String sql;
 
-    public void salvar(Aluno aluno) throws SQLException {
+    public void salvar(AlunoM aluno) throws SQLException {
         sql = "insert into alunos values (?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
 
@@ -37,6 +40,25 @@ public class DAOAluno {
         pst.setString(12, aluno.getEndEstado());
         pst.execute();
         pst.close();
+    }
+    
+    public List<AlunoM> ListaTodosAlunos() throws SQLException {
+        List<AlunoM> listaAlunos;
+        listaAlunos = new ArrayList<>();
+        
+        sql = "select * from alunos order by alunonome";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        
+        while (rs.next()){
+            listaAlunos.add(new AlunoM(rs.getInt("idAlunos"), rs.getString("AlunoNome"), rs.getInt("RaAluno"), 
+                    rs.getInt("TelefoneAluno"), rs.getString("EndRua"), rs.getInt("EndNumero"), rs.getString("EndBairro")));
+        }
+        
+        pst.close();
+        return listaAlunos;
+        
+        
     }
 
 }

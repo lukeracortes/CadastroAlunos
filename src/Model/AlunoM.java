@@ -9,7 +9,11 @@ package Model;
  *
  * @author Wellington
  */
-public class Aluno {
+public class AlunoM {
+
+    
+
+    
     private int IdAluno;
     private String AlunoNome;
     private int RaAluno;
@@ -22,6 +26,22 @@ public class Aluno {
     private String EndBairro;
     private String EndCidade;
     private String EndEstado; 
+    
+    
+    public AlunoM() {
+        
+    }
+    
+    public AlunoM(int IdAluno, String AlunoNome, int RaAluno, int TelefoneAluno, String EndRua, int EndNumero, String EndBairro) {
+        this.IdAluno = IdAluno;
+        this.AlunoNome = AlunoNome;
+        this.RaAluno = RaAluno;
+        this.TelefoneAluno = TelefoneAluno;
+        this.EndRua = EndRua;
+        this.EndNumero = EndNumero;
+        this.EndBairro = EndBairro;
+    }
+    
 
     public int getIdAluno() {
         return IdAluno;
