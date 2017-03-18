@@ -38,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `sistemaalunos`.`Alunos` (
 ENGINE = InnoDB;
 
 
-insert into sistemaalunos.alunos values(0, 'Lucas', 55, 5555, 'rgdocaboco', 34212020, 'rua das rosas', 113, 'nada', 'centro', 'frutal', 'MG')
-
+insert into alunos values (0, 'Marlon', 55, 5555, 34211010, 'rosas', 123, 'complemento', 'Centro', 'Frutal', 'MG')
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

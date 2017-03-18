@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -169,8 +170,18 @@ public class AlunoView extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         tblAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -317,7 +328,27 @@ public class AlunoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNumeroActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        if(txtNome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha nome do aluno!!");
+        } else {
+            aluno = new AlunoM();
+            aluno.setAlunoNome(txtCodigo.getText());
+            aluno.setRaAluno(Integer.parseInt(txtCodigo.getText()));
+            aluno.setTelefoneAluno(Integer.parseInt(txtCodigo.getText()));
+            aluno.setEndRua(txtCodigo.getText());
+            aluno.setEndNumero(Integer.parseInt(txtCodigo.getText()));
+            aluno.setEndBairro(txtCodigo.getText());
+            
+                try{
+                    alunoDAO.salvar(aluno);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
+                
+                }
+                JOptionPane.showMessageDialog(null, "Aluno gravado com sucesso!");
+                atualizaTabela();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void tblAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlunosMouseClicked
@@ -333,6 +364,41 @@ public class AlunoView extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_tblAlunosMouseClicked
+    
+    public void limpaCampos(){
+        txtCodigo.setText("");
+        txtNome.setText("");
+        txtMatricula.setText("");
+        txtTelefone.setText("");
+        txtRua.setText("");
+        txtNumero.setText("");
+        txtBairro.setText("");
+    }
+    
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(txtCodigo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione um aluno!");
+        } else {
+            aluno = new AlunoM();
+            aluno.setIdAluno(Integer.parseInt(txtCodigo.getText()));
+            int confirma = JOptionPane.showConfirmDialog(null, "Deseja excluir " + txtNome.getText());
+            if(confirma == 0){
+                try{
+                    alunoDAO.excluir(aluno);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
+                
+                }
+                limpaCampos();
+                atualizaTabela();
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        limpaCampos();
+    }//GEN-LAST:event_btnNovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
