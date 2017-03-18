@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package pacoteDAO;
 
 import Model.AlunoM;
-import dao.Conexao;
+import pacoteDAO.Conexao;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
