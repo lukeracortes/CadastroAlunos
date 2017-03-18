@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author marlo
  */
-public class DAOAluno {
+public class AlunoDAO {
 
     PreparedStatement pst;
     String sql;

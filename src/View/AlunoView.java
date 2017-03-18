@@ -5,7 +5,7 @@
  */
 package View;
 
-import DAO.DAOAluno;
+import DAO.AlunoDAO;
 import Model.AlunoM;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,14 +26,14 @@ public class AlunoView extends javax.swing.JInternalFrame {
      * Creates new form AlunoView
      */
     AlunoM aluno;
-    DAOAluno alunoDAO;
+    AlunoDAO alunoDAO;
     List<AlunoM> listaAluno;
     
     public AlunoView() {
         initComponents();
         this.setVisible(true);
         
-        alunoDAO = new DAOAluno();
+        alunoDAO = new AlunoDAO();
         listaAluno = new ArrayList<>();
         atualizaTabela();
         
