@@ -29,27 +29,26 @@ public class AlunoView extends javax.swing.JInternalFrame {
     AlunoM aluno;
     AlunoDAO alunoDAO;
     List<AlunoM> listaAluno;
-    
+
     public AlunoView() {
         initComponents();
         this.setVisible(true);
-        
+
         alunoDAO = new AlunoDAO();
         listaAluno = new ArrayList<>();
         atualizaTabela();
-        
-        
+
     }
-    
-    public void atualizaTabela(){
+
+    public void atualizaTabela() {
         aluno = new AlunoM();
-        
+
         try {
             listaAluno = alunoDAO.ListaTodosAlunos();
         } catch (SQLException ex) {
             Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String dados[][] = new String[listaAluno.size()][7];
         int i = 0;
         for (AlunoM aluno : listaAluno) {
@@ -62,19 +61,20 @@ public class AlunoView extends javax.swing.JInternalFrame {
             dados[i][6] = aluno.getEndBairro();
             i++;
         }
-        
+
         String tituloColuna[] = {"Código", "Nome", "Registro Acadêmico", "Telefone", "Rua", "Número", "Bairro"};
         DefaultTableModel tabelaAluno = new DefaultTableModel();
         tabelaAluno.setDataVector(dados, tituloColuna);
-        tblAlunos.setModel(new DefaultTableModel(dados, tituloColuna){
+        tblAlunos.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false, false
             };
-            public boolean isCellEditable(int rowIndex, int columnIndex){
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
         });
-        
+
         tblAlunos.getColumnModel().getColumn(0).setPreferredWidth(5);
         tblAlunos.getColumnModel().getColumn(1).setPreferredWidth(100);
         tblAlunos.getColumnModel().getColumn(2).setPreferredWidth(20);
@@ -82,7 +82,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
         tblAlunos.getColumnModel().getColumn(4).setPreferredWidth(100);
         tblAlunos.getColumnModel().getColumn(5).setPreferredWidth(10);
         tblAlunos.getColumnModel().getColumn(6).setPreferredWidth(50);
-        
+
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tblAlunos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
@@ -90,7 +90,6 @@ public class AlunoView extends javax.swing.JInternalFrame {
         tblAlunos.updateUI();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,7 +123,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlunos = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
-        cbxEstado = new javax.swing.JComboBox<>();
+        txtEstado = new javax.swing.JTextField();
 
         setClosable(true);
         setTitle("Alunos");
@@ -202,8 +201,17 @@ public class AlunoView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblAlunos);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,7 +273,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEstado)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -302,7 +310,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -317,7 +325,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
                     .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -328,26 +336,28 @@ public class AlunoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNumeroActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(txtNome.getText().isEmpty()){
+        if (txtNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha nome do aluno!!");
         } else {
             aluno = new AlunoM();
-            aluno.setAlunoNome(txtCodigo.getText());
-            aluno.setRaAluno(Integer.parseInt(txtCodigo.getText()));
-            aluno.setTelefoneAluno(Integer.parseInt(txtCodigo.getText()));
-            aluno.setEndRua(txtCodigo.getText());
-            aluno.setEndNumero(Integer.parseInt(txtCodigo.getText()));
-            aluno.setEndBairro(txtCodigo.getText());
-            
-                try{
-                    alunoDAO.salvar(aluno);
-                    
-                } catch (SQLException ex) {
-                    Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
-                
-                }
-                JOptionPane.showMessageDialog(null, "Aluno gravado com sucesso!");
-                atualizaTabela();
+            aluno.setAlunoNome(txtNome.getText());
+            aluno.setRaAluno(Integer.parseInt(txtMatricula.getText()));
+            aluno.setCpfAluno(Integer.parseInt(txtCpf.getText()));
+            aluno.setRgAluno(txtRg.getText());
+            aluno.setTelefoneAluno(Integer.parseInt(txtTelefone.getText()));
+            aluno.setEndRua(txtRua.getText());
+            aluno.setEndNumero(Integer.parseInt(txtNumero.getText()));
+            aluno.setEndComplemento(txtComplemento.getText());
+            aluno.setEndBairro(txtBairro.getText());
+            aluno.setEndCidade(txtCidade.getText());
+            aluno.setEndEstado(txtEstado.getText());
+            try {
+                alunoDAO.salvar(aluno);
+            } catch (SQLException ex) {
+                Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Aluno gravado com sucesso!");
+            atualizaTabela();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -360,12 +370,11 @@ public class AlunoView extends javax.swing.JInternalFrame {
         txtRua.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 4).toString());
         txtNumero.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 5).toString());
         txtBairro.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 6).toString());
-        
-        
-        
+
+
     }//GEN-LAST:event_tblAlunosMouseClicked
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         txtCodigo.setText("");
         txtNome.setText("");
         txtMatricula.setText("");
@@ -374,21 +383,21 @@ public class AlunoView extends javax.swing.JInternalFrame {
         txtNumero.setText("");
         txtBairro.setText("");
     }
-    
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(txtCodigo.getText().isEmpty()){
+        if (txtCodigo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um aluno!");
         } else {
             aluno = new AlunoM();
             aluno.setIdAluno(Integer.parseInt(txtCodigo.getText()));
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja excluir " + txtNome.getText());
-            if(confirma == 0){
-                try{
+            if (confirma == 0) {
+                try {
                     alunoDAO.excluir(aluno);
-                    
+
                 } catch (SQLException ex) {
                     Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
-                
+
                 }
                 limpaCampos();
                 atualizaTabela();
@@ -400,13 +409,43 @@ public class AlunoView extends javax.swing.JInternalFrame {
         limpaCampos();
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (txtCodigo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione um Aluno");
+        } else {
+            aluno = new AlunoM();
+            aluno.setIdAluno(Integer.parseInt(txtCodigo.getText()));
+            aluno.setAlunoNome(txtNome.getText());
+            aluno.setRaAluno(Integer.parseInt(txtMatricula.getText()));
+            aluno.setCpfAluno(Integer.parseInt(txtCpf.getText()));
+            aluno.setRgAluno(txtRg.getText());
+            aluno.setTelefoneAluno(Integer.parseInt(txtTelefone.getText()));
+            aluno.setEndRua(txtRua.getText());
+            aluno.setEndNumero(Integer.parseInt(txtNumero.getText()));
+            aluno.setEndComplemento(txtComplemento.getText());
+            aluno.setEndBairro(txtBairro.getText());
+            aluno.setEndCidade(txtCidade.getText());
+            aluno.setEndEstado(txtEstado.getText());
+            try {
+                alunoDAO.alterar(aluno);
+            } catch (SQLException ex) {
+                Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso!");
+            atualizaTabela();
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -426,6 +465,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
