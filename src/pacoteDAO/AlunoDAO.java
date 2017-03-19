@@ -51,8 +51,20 @@ public class AlunoDAO {
         ResultSet rs = pst.executeQuery();
 
         while (rs.next()) {
-            listaAlunos.add(new AlunoM(rs.getInt("idAlunos"), rs.getString("AlunoNome"), rs.getInt("RaAluno"),
-                    rs.getInt("TelefoneAluno"), rs.getString("EndRua"), rs.getInt("EndNumero"), rs.getString("EndBairro")));
+            listaAlunos.add(
+                    new AlunoM(
+                            rs.getInt("idAlunos"),
+                            rs.getString("AlunoNome"),
+                            rs.getInt("RaAluno"),
+                            rs.getInt("TelefoneAluno"),
+                            rs.getString("EndRua"),
+                            rs.getInt("EndNumero"),
+                            rs.getString("EndBairro"),
+                            rs.getInt("CpfAluno"),
+                            rs.getString("RgAluno"),
+                            rs.getString("EndComplemento"),
+                            rs.getString("EndCidade"),
+                            rs.getString("EndEstado")));
         }
 
         pst.close();

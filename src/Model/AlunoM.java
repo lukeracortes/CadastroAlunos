@@ -11,9 +11,6 @@ package Model;
  */
 public class AlunoM {
 
-    
-
-    
     private int IdAluno;
     private String AlunoNome;
     private int RaAluno;
@@ -25,14 +22,16 @@ public class AlunoM {
     private String EndComplemento;
     private String EndBairro;
     private String EndCidade;
-    private String EndEstado; 
-    
-    
+    private String EndEstado;
+
     public AlunoM() {
-        
+
     }
-    
-    public AlunoM(int IdAluno, String AlunoNome, int RaAluno, int TelefoneAluno, String EndRua, int EndNumero, String EndBairro) {
+
+    public AlunoM(int IdAluno, String AlunoNome, int RaAluno, int TelefoneAluno,
+            String EndRua, int EndNumero, String EndBairro, int Cpf,
+            String RgAluno, String EndComplemento, String EndCidade,
+            String EndEstado) {
         this.IdAluno = IdAluno;
         this.AlunoNome = AlunoNome;
         this.RaAluno = RaAluno;
@@ -40,8 +39,12 @@ public class AlunoM {
         this.EndRua = EndRua;
         this.EndNumero = EndNumero;
         this.EndBairro = EndBairro;
+        this.CpfAluno = Cpf;
+        this.RgAluno = RgAluno;
+        this.EndComplemento = EndComplemento;
+        this.EndCidade = EndCidade;
+        this.EndEstado = EndEstado;
     }
-    
 
     public int getIdAluno() {
         return IdAluno;
@@ -138,5 +141,5 @@ public class AlunoM {
     public void setEndEstado(String EndEstado) {
         this.EndEstado = EndEstado;
     }
-    
+
 }

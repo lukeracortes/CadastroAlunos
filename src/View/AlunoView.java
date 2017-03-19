@@ -49,7 +49,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String dados[][] = new String[listaAluno.size()][7];
+        String dados[][] = new String[listaAluno.size()][13];
         int i = 0;
         for (AlunoM aluno : listaAluno) {
             dados[i][0] = String.valueOf(aluno.getIdAluno());
@@ -59,15 +59,20 @@ public class AlunoView extends javax.swing.JInternalFrame {
             dados[i][4] = aluno.getEndRua();
             dados[i][5] = String.valueOf(aluno.getEndNumero());
             dados[i][6] = aluno.getEndBairro();
+            dados[i][7] = String.valueOf(aluno.getCpfAluno());
+            dados[i][8] = aluno.getRgAluno();
+            dados[i][9] = aluno.getEndComplemento();
+            dados[i][10] = aluno.getEndCidade();
+            dados[i][11] = aluno.getEndEstado();
             i++;
         }
 
-        String tituloColuna[] = {"Código", "Nome", "Registro Acadêmico", "Telefone", "Rua", "Número", "Bairro"};
+        String tituloColuna[] = {"Código", "Nome", "Registro Acadêmico", "Telefone", "Rua", "Número", "Bairro", "Cpf", "RG Aluno", "Complemento Endereço", "Cidade", "Estado"};
         DefaultTableModel tabelaAluno = new DefaultTableModel();
         tabelaAluno.setDataVector(dados, tituloColuna);
         tblAlunos.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false 
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -76,12 +81,17 @@ public class AlunoView extends javax.swing.JInternalFrame {
         });
 
         tblAlunos.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblAlunos.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tblAlunos.getColumnModel().getColumn(2).setPreferredWidth(20);
-        tblAlunos.getColumnModel().getColumn(3).setPreferredWidth(30);
-        tblAlunos.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tblAlunos.getColumnModel().getColumn(5).setPreferredWidth(10);
-        tblAlunos.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tblAlunos.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(5).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(6).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(7).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(8).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(9).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(10).setPreferredWidth(150);
+        tblAlunos.getColumnModel().getColumn(11).setPreferredWidth(150);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -219,7 +229,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(78, 78, 78)
@@ -370,6 +380,11 @@ public class AlunoView extends javax.swing.JInternalFrame {
         txtRua.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 4).toString());
         txtNumero.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 5).toString());
         txtBairro.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 6).toString());
+        txtCpf.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 7).toString());
+        txtRg.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 8).toString());
+        txtComplemento.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 9).toString());
+        txtCidade.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 10).toString());
+        txtEstado.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 11).toString());
 
 
     }//GEN-LAST:event_tblAlunosMouseClicked
