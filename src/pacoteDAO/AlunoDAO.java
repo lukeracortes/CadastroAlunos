@@ -80,6 +80,31 @@ public class AlunoDAO {
         pst.execute();
         pst.close();
     }
+    
+    public AlunoM buscaInt(int idAluno) throws SQLException{
+        sql = "select * from alunos where idAlunos = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        AlunoM retAluno = null;
+        pst.setInt(1, idAluno);
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+           retAluno = new AlunoM(
+                            rs.getInt("idAlunos"),
+                            rs.getString("AlunoNome"),
+                            rs.getInt("RaAluno"),
+                            rs.getInt("TelefoneAluno"),
+                            rs.getString("EndRua"),
+                            rs.getInt("EndNumero"),
+                            rs.getString("EndBairro"),
+                            rs.getInt("CpfAluno"),
+                            rs.getString("RgAluno"),
+                            rs.getString("EndComplemento"),
+                            rs.getString("EndCidade"),
+                            rs.getString("EndEstado"));
+        }
+        pst.close();
+        return retAluno;
+    }
 
     public void alterar(AlunoM aluno) throws SQLException {
         sql = "update alunos set AlunoNome = ?, RaAluno = ?, CpfAluno = ?, "

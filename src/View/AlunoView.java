@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,10 +35,26 @@ public class AlunoView extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
 
+        
         alunoDAO = new AlunoDAO();
         listaAluno = new ArrayList<>();
         atualizaTabela();
+        cbxEstados.removeAllItems();
 
+    }
+    
+    public void preencheCombo(){
+        cbxEstados.removeAllItems();
+        String estados[] = {"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+            "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
+        DefaultComboBoxModel dados = new DefaultComboBoxModel();
+        
+        for(int i =0; i < estados.length; i++){
+            dados.addElement(estados[i]);
+            
+        }
+        cbxEstados.setModel(dados);
+        
     }
 
     public void atualizaTabela() {
@@ -133,7 +150,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlunos = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
-        txtEstado = new javax.swing.JTextField();
+        cbxEstados = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Alunos");
@@ -165,13 +182,33 @@ public class AlunoView extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Complemento:");
 
+        txtNome.setEnabled(false);
+
+        txtRg.setEnabled(false);
+
+        txtCpf.setEnabled(false);
+
+        txtMatricula.setEnabled(false);
+
+        txtTelefone.setEnabled(false);
+
+        txtRua.setEnabled(false);
+
+        txtNumero.setEnabled(false);
         txtNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroActionPerformed(evt);
             }
         });
 
+        txtBairro.setEnabled(false);
+
+        txtCidade.setEnabled(false);
+
+        txtComplemento.setEnabled(false);
+
         btnSalvar.setText("Salvar");
+        btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -179,6 +216,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -211,80 +249,82 @@ public class AlunoView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblAlunos);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
 
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
-            }
-        });
+        cbxEstados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEstados.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtRua)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtRg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMatricula))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbxEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtComplemento))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtBairro)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtRg)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMatricula))
-                    .addComponent(txtComplemento)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtRua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEstado)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,24 +358,22 @@ public class AlunoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(cbxEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -360,7 +398,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             aluno.setEndComplemento(txtComplemento.getText());
             aluno.setEndBairro(txtBairro.getText());
             aluno.setEndCidade(txtCidade.getText());
-            aluno.setEndEstado(txtEstado.getText());
+            aluno.setEndEstado("MG");
             try {
                 alunoDAO.salvar(aluno);
             } catch (SQLException ex) {
@@ -368,24 +406,49 @@ public class AlunoView extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(null, "Aluno gravado com sucesso!");
             atualizaTabela();
+            preparaSalvarCancelar();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void tblAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlunosMouseClicked
         // TODO add your handling code here:
-        txtCodigo.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 0).toString());
-        txtNome.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 1).toString());
-        txtMatricula.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 2).toString());
-        txtTelefone.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 3).toString());
-        txtRua.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 4).toString());
-        txtNumero.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 5).toString());
-        txtBairro.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 6).toString());
-        txtCpf.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 7).toString());
-        txtRg.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 8).toString());
-        txtComplemento.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 9).toString());
-        txtCidade.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 10).toString());
-        txtEstado.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 11).toString());
-
+        String sCodigo = tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 0).toString();
+        int codigo = Integer.parseInt(sCodigo);
+        aluno = new AlunoM();
+        try {
+            aluno = alunoDAO.buscaInt(codigo);
+            txtCodigo.setText(String.valueOf(aluno.getIdAluno()));
+            txtNome.setText(aluno.getAlunoNome());
+            txtMatricula.setText(String.valueOf(aluno.getRaAluno()));
+            txtTelefone.setText(String.valueOf(aluno.getTelefoneAluno()));
+            txtRua.setText(aluno.getEndRua());
+            txtNumero.setText(String.valueOf(aluno.getEndNumero()));
+            txtBairro.setText(aluno.getEndBairro());
+            txtCpf.setText(String.valueOf(aluno.getCpfAluno()));
+            txtRg.setText(aluno.getRgAluno());
+            txtComplemento.setText(aluno.getEndComplemento());
+            txtCidade.setText(aluno.getEndCidade());
+            cbxEstados.removeAllItems();
+            cbxEstados.addItem(aluno.getEndEstado());
+          
+            
+            /*
+            txtCodigo.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 0).toString());
+            txtNome.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 1).toString());
+            txtMatricula.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 2).toString());
+            txtTelefone.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 3).toString());
+            txtRua.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 4).toString());
+            txtNumero.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 5).toString());
+            txtBairro.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 6).toString());
+            txtCpf.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 7).toString());
+            txtRg.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 8).toString());
+            txtComplemento.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 9).toString());
+            txtCidade.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 10).toString());
+            //txtEstado.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 11).toString());
+            */
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_tblAlunosMouseClicked
 
@@ -393,10 +456,51 @@ public class AlunoView extends javax.swing.JInternalFrame {
         txtCodigo.setText("");
         txtNome.setText("");
         txtMatricula.setText("");
+        txtRg.setText("");
+        txtCpf.setText("");
         txtTelefone.setText("");
         txtRua.setText("");
         txtNumero.setText("");
         txtBairro.setText("");
+        txtCidade.setText("");
+        txtComplemento.setText("");
+        cbxEstados.removeAllItems();
+        preencheCombo();
+    }
+    
+    public void preparaNovo(){
+        btnNovo.setEnabled(false);
+        btnSalvar.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        tblAlunos.setEnabled(false);
+        tblAlunos.clearSelection();
+    }
+    
+    public void preparaSalvarCancelar(){
+        btnNovo.setEnabled(true);
+        btnSalvar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        tblAlunos.setEnabled(true);
+        tblAlunos.clearSelection();
+        //cbxUnidade.setSelectedIndex(0);
+    }
+    
+    public void ativaCampos(){
+        txtCodigo.setEnabled(true);
+        txtNome.setEnabled(true);
+        txtMatricula.setEnabled(true);
+        txtRg.setEnabled(true);
+        txtCpf.setEnabled(true);
+        txtTelefone.setEnabled(true);;
+        txtRua.setEnabled(true);
+        txtNumero.setEnabled(true);
+        txtBairro.setEnabled(true);
+        txtCidade.setEnabled(true);
+        txtComplemento.setEnabled(true);
+        cbxEstados.setEnabled(true);
+        preencheCombo();
+        
     }
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -422,13 +526,14 @@ public class AlunoView extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         limpaCampos();
+        preparaNovo();
+        ativaCampos();
+        
     }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
-
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+
+        /*
         if (txtCodigo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Aluno");
         } else {
@@ -452,7 +557,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso!");
             atualizaTabela();
-        }
+        }*/
     }//GEN-LAST:event_btnAlterarActionPerformed
 
 
@@ -461,6 +566,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbxEstados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -480,7 +586,6 @@ public class AlunoView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
@@ -488,4 +593,8 @@ public class AlunoView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+
+    private int parseInt(Object valueAt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
