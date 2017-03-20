@@ -73,7 +73,7 @@ public class AlunoDAO {
     }
 
     public void excluir(AlunoM aluno) throws SQLException {
-        sql = "delete from alunos where codigo = ?";
+        sql = "delete from alunos where idAlunos = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
 
         pst.setInt(1, aluno.getIdAluno());

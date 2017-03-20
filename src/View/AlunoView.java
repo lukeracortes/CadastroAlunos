@@ -59,7 +59,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
 
     public void atualizaTabela() {
         aluno = new AlunoM();
-
+        tblAlunos.setEnabled(true);
         try {
             listaAluno = alunoDAO.ListaTodosAlunos();
         } catch (SQLException ex) {
@@ -366,11 +366,12 @@ public class AlunoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel11)
                     .addComponent(cbxEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -398,7 +399,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             aluno.setEndComplemento(txtComplemento.getText());
             aluno.setEndBairro(txtBairro.getText());
             aluno.setEndCidade(txtCidade.getText());
-            aluno.setEndEstado("MG");
+            aluno.setEndEstado(cbxEstados.getSelectedItem().toString());
             try {
                 alunoDAO.salvar(aluno);
             } catch (SQLException ex) {
@@ -407,6 +408,8 @@ public class AlunoView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Aluno gravado com sucesso!");
             atualizaTabela();
             preparaSalvarCancelar();
+            desativaCampos();
+            limpaCampos();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -431,7 +434,8 @@ public class AlunoView extends javax.swing.JInternalFrame {
             cbxEstados.removeAllItems();
             cbxEstados.addItem(aluno.getEndEstado());
           
-            
+            preparaAlterar();
+            btnExcluir.setEnabled(true);
             /*
             txtCodigo.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 0).toString());
             txtNome.setText(tblAlunos.getValueAt(tblAlunos.getSelectedRow(), 1).toString());
@@ -468,6 +472,18 @@ public class AlunoView extends javax.swing.JInternalFrame {
         preencheCombo();
     }
     
+    public void preparaAlterar(){
+        btnNovo.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        btnAlterar.setEnabled(true);
+        btnSalvar.setEnabled(false);
+        
+        cbxEstados.setEnabled(true);
+        tblAlunos.setEnabled(false);
+        tblAlunos.clearSelection();
+        ativaCampos();
+    }
+    
     public void preparaNovo(){
         btnNovo.setEnabled(false);
         btnSalvar.setEnabled(true);
@@ -486,7 +502,24 @@ public class AlunoView extends javax.swing.JInternalFrame {
         //cbxUnidade.setSelectedIndex(0);
     }
     
-    public void ativaCampos(){
+    public void desativaCampos(){
+        txtCodigo.setEnabled(false);
+        txtNome.setEnabled(false);
+        txtMatricula.setEnabled(false);
+        txtRg.setEnabled(false);
+        txtCpf.setEnabled(false);
+        txtTelefone.setEnabled(false);;
+        txtRua.setEnabled(false);
+        txtNumero.setEnabled(false);
+        txtBairro.setEnabled(false);
+        txtCidade.setEnabled(false);
+        txtComplemento.setEnabled(false);
+        cbxEstados.setEnabled(false);
+        preencheCombo();
+        
+    }
+    
+     public void ativaCampos(){
         txtCodigo.setEnabled(true);
         txtNome.setEnabled(true);
         txtMatricula.setEnabled(true);
@@ -520,6 +553,10 @@ public class AlunoView extends javax.swing.JInternalFrame {
                 }
                 limpaCampos();
                 atualizaTabela();
+                desativaCampos();
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+                btnNovo.setEnabled(true);
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -533,7 +570,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
 
-        /*
+        
         if (txtCodigo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Aluno");
         } else {
@@ -549,7 +586,7 @@ public class AlunoView extends javax.swing.JInternalFrame {
             aluno.setEndComplemento(txtComplemento.getText());
             aluno.setEndBairro(txtBairro.getText());
             aluno.setEndCidade(txtCidade.getText());
-            aluno.setEndEstado(txtEstado.getText());
+            aluno.setEndEstado(cbxEstados.getSelectedItem().toString());
             try {
                 alunoDAO.alterar(aluno);
             } catch (SQLException ex) {
@@ -557,7 +594,12 @@ public class AlunoView extends javax.swing.JInternalFrame {
             }
             JOptionPane.showMessageDialog(null, "Aluno alterado com sucesso!");
             atualizaTabela();
-        }*/
+            limpaCampos();
+            desativaCampos();
+            btnAlterar.setEnabled(false);
+            btnNovo.setEnabled(true);
+            btnExcluir.setEnabled(false);
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
 
